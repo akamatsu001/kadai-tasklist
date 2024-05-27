@@ -33,6 +33,7 @@ public class NewServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         //CSRF対策
         request.setAttribute("_token", request.getSession().getId());
 
@@ -45,15 +46,7 @@ public class NewServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
         em.getTransaction().begin();
 
-        // Taskのインスタンスを生成
         Task t = new Task();
-
-        // mの各フィールドにデータを代入
-        String title = "課題";
-        t.setTitle(title);
-
-        String content = "lesson16";
-        t.setContent(content);
 
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());     // 現在の日時を取得
         t.setCreated_at(currentTime);
@@ -67,6 +60,9 @@ public class NewServlet extends HttpServlet {
         response.getWriter().append(Integer.valueOf(t.getId()).toString());
 
         em.close();
+
+
+
     }
 
 }
